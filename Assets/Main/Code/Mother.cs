@@ -5,7 +5,7 @@ using UnityEngine;
 public class Mother : MonoBehaviour
 {
     private Rigidbody rigidbody;
-    private Transform myTransform;
+    [HideInInspector]public Transform myTransform;
     [Header("Speeds and Forces")]
     [SerializeField] private float rotationSpeedPerSecond;
     [SerializeField] private float forwardSpeedPerSecond;
@@ -20,14 +20,11 @@ public class Mother : MonoBehaviour
         get { return currentForwardSpeed != 0; }
     }
     private bool jumpRequest = false;
+    public static Mother instance;
 
-
-    private void OnApplicationFocus(bool focus)
-    {
-        
-    }
     void Start()
     {
+        instance = this;
         Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible =false;
 

@@ -5,7 +5,7 @@ using UnityEngine;
 public class Frightener : MonoBehaviour
 {
     [SerializeField] private SphereCollider rangeSphere;
-    [SerializeField] private float frightenFrequency;
+   // [SerializeField] private float frightenFrequency;
     private Collider[] collidersInRange;
     private const int collidersInRangeSize =32;
     // Start is called before the first frame update
@@ -15,13 +15,7 @@ public class Frightener : MonoBehaviour
         Frighten();
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
-
-    private void Frighten()
+    public void Frighten()
     {
         Vector3 centre = transform.position;
         int numberOfCollidersInRange =  Physics.OverlapSphereNonAlloc(centre, rangeSphere.radius, collidersInRange);
@@ -35,6 +29,6 @@ public class Frightener : MonoBehaviour
         }
 
         Debug.Log( numberOfCollidersInRange + " colliders out of " + collidersInRangeSize);
-        Invoke("Frighten", frightenFrequency);
+       // Invoke("Frighten", frightenFrequency);
     }
 }
