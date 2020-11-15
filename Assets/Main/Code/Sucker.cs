@@ -12,11 +12,11 @@ public struct Attraction
 public class Sucker : MonoBehaviour
 {
     public Attraction attractionField;
-    public Rigidbody rigidbody;
+    //public Rigidbody rigidbody;
 
     public void Initialise()
     {
-        rigidbody = GetComponent<Rigidbody>();
+       // rigidbody = GetComponent<Rigidbody>();
         if (attractionField.attractopnPoint == null)
         {
             attractionField.attractopnPoint = transform;
