@@ -5,8 +5,9 @@ using UnityEngine;
 
 public class Baby : Suckable
 {
-    public Transform myTransform;
-    public Transform closestKin;
+    public bool isAlive;
+   [HideInInspector]  public Transform myTransform;
+    [HideInInspector] public Transform closestKin;
     private const float FORWARD_SPEED_PER_SECOND = 2f;
 
     private const float ACCELERATION_PER_SECOND = 8f;
@@ -26,6 +27,9 @@ public class Baby : Suckable
     }
 
     [SerializeField] private Animator animator;
+    [SerializeField] private GameObject graphics;
+    [SerializeField] private GameObject collider;
+
 
     private void Awake()
     {
@@ -76,7 +80,6 @@ public class Baby : Suckable
             (myPosition - FrighteningOrigin).normalized;
         myTransform.LookAt(myPosition + direction);
     }
-
 
     public void FrightendRoutine(ref float deltaTime)
     {
@@ -134,5 +137,50 @@ public class Baby : Suckable
         }
     }
     #endregion
+
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(isAlive&& collision.gameObject.tag == "Hot")
+        {
+            Burn();
+        }
+    }
+
+    private void Burn()
+    {
+        Die();
+        rigidbody.constraints = RigidbodyConstraints.None;
+        rigidbody.AddForce(Vector3.up * 1, ForceMode.Impulse);
+
+
+        Vector3 myPosition = this.myTransform.position;
+
+
+        Transform flameTransform = Spawner.instance.SpawnFlame().transform;
+        flameTransform.transform.position = myPosition;
+
+        Invoke("TurnIntoDrumStick",0.2f);
+    }
+
+    private void TurnIntoDrumStick()
+    {
+        graphics.SetActive(false);
+        collider.SetActive(false);
+        Vector3 myPosition = this.myTransform.position;
+
+        Transform puffTransform = Spawner.instance.SpawnPuff().transform;
+        puffTransform.position = myPosition;
+
+        Transform drumStickTransform = Spawner.instance.SpawnDrumStick().transform;
+        drumStickTransform.rotation = myTransform.rotation;
+        drumStickTransform.position = myPosition;
+        drumStickTransform.SetParent(myTransform);
+
+    }
+    private void Die()
+    {
+        isAlive = false;
+    }
 }
 

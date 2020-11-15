@@ -37,7 +37,9 @@ public class GameManager : MonoBehaviour
         Transform motherTransform = mother.transform;
         for (int i = 0; i < babies.Length; i++)
         {
-            babies[i].closestKin = motherTransform;
+            Baby baby = babies[i];
+            baby.isAlive = true;
+            baby.closestKin = motherTransform;
         }
     }
 
@@ -59,23 +61,27 @@ public class GameManager : MonoBehaviour
         for (int i = 0; i < babies.Length; i++)
         {
             Baby baby = babies[i];
-            if (baby.IsFrightened)
+            if (baby.isAlive)
             {
-                baby.FrightendRoutine(ref deltaTime);
-            }
-            else
-            {
-                if (motherIsMoving)
+                if (baby.IsFrightened)
                 {
-                    //The split is weird, also weird method names
-                    baby.CheckForKinDistance(ref deltaTime);
-                    baby.GoTowardsKin(ref deltaTime);
+                    baby.FrightendRoutine(ref deltaTime);
                 }
                 else
                 {
-                    baby.IdleRoutine(ref time, ref deltaTime);
+                    if (motherIsMoving)
+                    {
+                        //The split is weird, also weird method names
+                        baby.CheckForKinDistance(ref deltaTime);
+                        baby.GoTowardsKin(ref deltaTime);
+                    }
+                    else
+                    {
+                        baby.IdleRoutine(ref time, ref deltaTime);
+                    }
                 }
             }
+
         }
     }
 
