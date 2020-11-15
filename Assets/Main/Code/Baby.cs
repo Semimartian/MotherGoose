@@ -3,9 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Baby : MonoBehaviour
+public class Baby : Suckable
 {
-    private Rigidbody rigidbody;
     public Transform myTransform;
     public Transform closestKin;
     private const float FORWARD_SPEED_PER_SECOND = 2f;
