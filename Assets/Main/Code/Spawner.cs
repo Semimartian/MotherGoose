@@ -9,6 +9,8 @@ public class Spawner : MonoBehaviour
     [SerializeField] private GameObject drumStickPreFab;
     [SerializeField] private GameObject flamePreFab;
     [SerializeField] private GameObject puffPreFab;
+    [SerializeField] private GameObject featherStreamPreFab;
+    
 
     private void Awake()
     {
@@ -34,5 +36,10 @@ public class Spawner : MonoBehaviour
     public GameObject SpawnPuff()
     {
         return Instantiate(puffPreFab);
+    }
+
+    public GameObject SpawnFeatherStream()
+    {
+        return Instantiate(featherStreamPreFab);
     }
 }
