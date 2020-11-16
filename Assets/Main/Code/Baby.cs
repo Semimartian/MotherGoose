@@ -178,6 +178,8 @@ public class Baby : Suckable
         drumStickTransform.SetParent(myTransform);
 
     }
+
+
     private void Die()
     {
         isAlive = false;
