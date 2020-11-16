@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Baby : Suckable
 {
     public bool isAlive;
@@ -15,6 +14,7 @@ public class Baby : Suckable
 
     private float currentSpeed = 0;
     public const float DESIRED_DISTANCE_FROM_KIN = 1f;
+
     public const float ACCEPTABLE_DISTANCE_FROM_KIN = 1f;
 
     private bool isFrightened = false;
@@ -143,7 +143,8 @@ public class Baby : Suckable
     {
         if(isAlive&& collision.gameObject.tag == "Hot")
         {
-            Burn();
+            float delay = Random.Range(0, 1f);
+            Invoke("Burn", delay);
         }
     }
 
@@ -179,6 +180,11 @@ public class Baby : Suckable
 
     }
 
+    public void GetSucked()
+    {
+        Die();
+        gameObject.SetActive(false);
+    }
 
     private void Die()
     {
