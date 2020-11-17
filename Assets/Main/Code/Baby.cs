@@ -143,7 +143,7 @@ public class Baby : Suckable
     {
         if(isAlive&& collision.gameObject.tag == "Hot")
         {
-            float delay = Random.Range(0, 1f);
+            float delay = Random.Range(0, 1.5f);
             Invoke("Burn", delay);
         }
     }
