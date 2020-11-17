@@ -10,13 +10,24 @@ public class MainCamera : MonoBehaviour
     [SerializeField] private Vector3 offset;
 
     [SerializeField] private Vector3 lerpedMovementOnAllAxes;
-
+    private Transform audioListener;
    // [SerializeField] private float lerpedMovementAmount = 0.5f;
     // [SerializeField] private float ZOffsetFromTarget;
 
     private void Awake()
     {
         myTransform = transform;
+        CreateAudioListener();
+    }
+
+
+    private void CreateAudioListener()
+    {
+        GameObject listenerGO = new GameObject("AudioListener");
+        listenerGO.AddComponent<AudioListener>();
+        audioListener = listenerGO.transform;
+        audioListener.position = myTransform.position - new Vector3(0,0, offset.z);
+        audioListener.SetParent(myTransform);
     }
 
     private void FixedUpdate()

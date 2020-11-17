@@ -18,6 +18,8 @@ public class Baby : Suckable
     public const float ACCEPTABLE_DISTANCE_FROM_KIN = 1f;
 
     private bool isFrightened = false;
+    bool isBurning = false;
+
     public bool IsFrightened
     {
         get
@@ -138,12 +140,12 @@ public class Baby : Suckable
     }
     #endregion
 
-
     private void OnCollisionEnter(Collision collision)
     {
-        if(isAlive&& collision.gameObject.tag == "Hot")
+        if(isAlive&& !isBurning && collision.gameObject.tag == "Hot")
         {
-            float delay = Random.Range(0, 1.5f);
+            isBurning = true;
+            float delay = Random.Range(0, 1.2f);
             Invoke("Burn", delay);
         }
     }
@@ -154,9 +156,7 @@ public class Baby : Suckable
         rigidbody.constraints = RigidbodyConstraints.None;
         rigidbody.AddForce(Vector3.up * 1, ForceMode.Impulse);
 
-
         Vector3 myPosition = this.myTransform.position;
-
 
         Transform flameTransform = Spawner.instance.SpawnFlame().transform;
         flameTransform.transform.position = myPosition;
@@ -166,6 +166,7 @@ public class Baby : Suckable
 
     private void TurnIntoDrumStick()
     {
+        DeathCry();
         graphics.SetActive(false);
         collider.SetActive(false);
         Vector3 myPosition = this.myTransform.position;
@@ -183,7 +184,14 @@ public class Baby : Suckable
     public void GetSucked()
     {
         Die();
+        DeathCry();
         gameObject.SetActive(false);
+
+    }
+
+    private void DeathCry()
+    {
+        SoundManager.PlayOneShotSoundAt(SoundNames.ChickDeath, myTransform.position);
     }
 
     private void Die()
