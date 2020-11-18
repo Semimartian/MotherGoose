@@ -44,7 +44,6 @@ public class GameManager : MonoBehaviour
     }
 
     
-
     private void FixedUpdate()
     {
         float deltaTime = Time.fixedDeltaTime;
@@ -130,4 +129,6 @@ public class GameManager : MonoBehaviour
         Invoke("DetermineBirdOrder", DetermineBirdOrderInterval);
 
     }
+
+
 }

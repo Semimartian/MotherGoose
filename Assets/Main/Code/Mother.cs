@@ -100,5 +100,18 @@ public class Mother : MonoBehaviour
     private void Jump()
     {
         rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+        animator.SetTrigger("Jump");
+        animator.SetBool("InAir", true);
     }
+
+    private void Land()
+    {
+        animator.SetBool("InAir", false);
+    }
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        Land();
+    }
+
 }
