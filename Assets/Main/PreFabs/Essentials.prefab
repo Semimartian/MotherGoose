@@ -168,7 +168,6 @@ GameObject:
   m_Component:
   - component: {fileID: 660754185444853227}
   - component: {fileID: 660754185444853228}
-  - component: {fileID: 660754185444853229}
   - component: {fileID: 660754185444853226}
   - component: {fileID: 660754185444853225}
   m_Layer: 0
@@ -235,14 +234,6 @@ Camera:
   m_OcclusionCulling: 1
   m_StereoConvergence: 10
   m_StereoSeparation: 0.022
---- !u!81 &660754185444853229
-AudioListener:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 660754185444853230}
-  m_Enabled: 1
 --- !u!114 &660754185444853226
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,7 +322,7 @@ GameObject:
   - component: {fileID: 660754185467849162}
   m_Layer: 0
   m_Name: MotherDuck
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -445,7 +436,7 @@ GameObject:
   - component: {fileID: 660754185922321217}
   m_Layer: 0
   m_Name: Capsule
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -569,7 +560,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d25b502685e9c984dbf44e361b020ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundData: {fileID: 0}
+  soundData: {fileID: 11400000, guid: 701ed4e9da2442a469ad91af5e05d298, type: 2}
 --- !u!1 &1153999325313992635
 GameObject:
   m_ObjectHideFlags: 0
