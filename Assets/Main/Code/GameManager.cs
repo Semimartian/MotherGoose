@@ -11,6 +11,8 @@ public class GameManager : MonoBehaviour
     private static Mother mother;
 
     private static GameManager instance;
+    [SerializeField] private ChicksUI chicksUI;
+
     // Start is called before the first frame update
 
     private void Awake()
@@ -23,6 +25,7 @@ public class GameManager : MonoBehaviour
 
         MakeAllBabiesFollowMother();
 
+        UpdateChicksUI();
     }
 
     void Start()
@@ -42,7 +45,6 @@ public class GameManager : MonoBehaviour
             baby.closestKin = motherTransform;
         }
     }
-
     
     private void FixedUpdate()
     {
@@ -83,7 +85,6 @@ public class GameManager : MonoBehaviour
 
         }
     }
-
 
     private struct BirdDistanceData
     {
@@ -131,4 +132,23 @@ public class GameManager : MonoBehaviour
     }
 
 
+    public static void OnChickDeath()
+    {
+       instance.UpdateChicksUI();
+    }
+
+    private void UpdateChicksUI()
+    {
+        int relevantChicks = 0;
+        for (int i = 0; i < babies.Length; i++)
+        {
+            Baby baby = babies[i];
+            if (baby.isAlive && !baby.IsFrightened)
+            {
+                relevantChicks++;
+            }
+        }
+
+        chicksUI.UpdateText(relevantChicks);
+    }
 }

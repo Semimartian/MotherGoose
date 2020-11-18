@@ -37,6 +37,8 @@ public class Baby : Suckable
     {
         myTransform = transform;
         rigidbody = GetComponent<Rigidbody>();
+        Invoke("Tweet", Random.Range(0f, 9f));
+
     }
 
     public void CheckForKinDistance(ref float deltaTime)
@@ -77,6 +79,7 @@ public class Baby : Suckable
     {
         Debug.Log("FRIGHT");
         isFrightened = true;
+        GameManager.OnChickDeath();
         Vector3 myPosition = myTransform.position;
         Vector3 direction =
             (myPosition - FrighteningOrigin).normalized;
@@ -195,10 +198,20 @@ public class Baby : Suckable
     {
         SoundManager.PlayOneShotSoundAt(SoundNames.ChickDeath, myTransform.position);
     }
+    private void Tweet()
+    {
+        if (isAlive)
+        {
+            SoundManager.PlayOneShotSoundAt(SoundNames.ChickTweet, myTransform.position);
+            Invoke("Tweet", Random.Range(4f, 10f));
+        }
+    }
 
     private void Die()
     {
         isAlive = false;
+        GameManager.OnChickDeath();
+
     }
 }
 

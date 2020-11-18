@@ -102,6 +102,8 @@ public class Mother : MonoBehaviour
         rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
         animator.SetTrigger("Jump");
         animator.SetBool("InAir", true);
+        SoundManager.PlayOneShotSoundAt(SoundNames.GooseJump, myTransform.position);
+
     }
 
     private void Land()
