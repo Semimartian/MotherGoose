@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: PolyToots_Distort
-  m_Shader: {fileID: 4800000, guid: 6e03b97062d89e64283619bfb161fb76, type: 3}
+  m_Shader: {fileID: 4800000, guid: 994391f3b6f49e949ab3b429bda7db2a, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 5
   m_EnableInstancingVariants: 0
@@ -33,11 +33,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AlphaCutoff: 0.5
-    - _ColourCorrector: 1.4
+    - _ColourCorrector: 1.85
     - _Cutoff: 0.5
-    - _Distort: 0.2
+    - _Distort: 0.22
     - _InvFade: 2.02
-    - _MaskModifier: 0.15
+    - _MaskModifier: 0.2
     - _TransAmbient: 0
     - _TransDirect: 1
     - _TransNormalDistortion: 0
@@ -48,4 +48,5 @@ Material:
     m_Colors:
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 1, g: 1, b: 1, a: 1}
+    - _SpecColor: {r: 1, g: 1, b: 1, a: 1}
     - _TintColor: {r: 1, g: 1, b: 1, a: 0.5}
