@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 public enum SoundNames : byte
 {
-    Bark, ChickDeath
+    Bark, ChickDeath, Sizzle
 
 }
 [Serializable]

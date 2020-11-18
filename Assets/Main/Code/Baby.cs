@@ -152,6 +152,8 @@ public class Baby : Suckable
 
     private void Burn()
     {
+        SoundManager.PlayOneShotSoundAt(SoundNames.Sizzle, myTransform.position);
+
         Die();
         rigidbody.constraints = RigidbodyConstraints.None;
         rigidbody.AddForce(Vector3.up * 1, ForceMode.Impulse);
