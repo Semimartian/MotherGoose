@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class Baby : Suckable
 {
-    public bool isAlive;
-   [HideInInspector]  public Transform myTransform;
+    [HideInInspector] public bool isAlive;
+    [HideInInspector]  public Transform myTransform;
     [HideInInspector] public Transform closestKin;
     private const float FORWARD_SPEED_PER_SECOND = 2f;
 
@@ -148,7 +148,7 @@ public class Baby : Suckable
         if(isAlive&& !isBurning && collision.gameObject.tag == "Hot")
         {
             isBurning = true;
-            float delay = Random.Range(0, 1.2f);
+            float delay = Random.Range(0, 1f);
             Invoke("Burn", delay);
         }
     }
