@@ -7,7 +7,7 @@ public class Baby : Suckable
     [HideInInspector] public bool isAlive;
     [HideInInspector]  public Transform myTransform;
     [HideInInspector] public Transform closestKin;
-    private const float FORWARD_SPEED_PER_SECOND = 2f;
+    private const float FORWARD_SPEED_PER_SECOND = 2.2f;
 
     private const float ACCELERATION_PER_SECOND = 8f;
     private const float DEACCELERATION_PER_SECOND = 8f;
@@ -27,19 +27,21 @@ public class Baby : Suckable
             return isFrightened;
         }
     }
+    private bool isRunningAway = false;
+
 
     [SerializeField] private Animator animator;
     [SerializeField] private GameObject graphics;
     [SerializeField] private GameObject collider;
-
+    [SerializeField] private WorryQuad worryQuad;
 
     private void Awake()
     {
         myTransform = transform;
         rigidbody = GetComponent<Rigidbody>();
         Invoke("Tweet", Random.Range(0f, 9f));
-
     }
+
 
     public void CheckForKinDistance(ref float deltaTime)
     {
@@ -77,19 +79,43 @@ public class Baby : Suckable
 
     public void BecomeFrightened(ref Vector3 FrighteningOrigin)
     {
+        if (IsFrightened)
+        {
+            return;
+        }
         Debug.Log("FRIGHT");
         isFrightened = true;
         GameManager.OnChickDeath();
+
+
+        rigidbody.AddForce(Vector3.up * 0.6f, ForceMode.Impulse);
+
         Vector3 myPosition = myTransform.position;
         Vector3 direction =
             (myPosition - FrighteningOrigin).normalized;
-        myTransform.LookAt(myPosition + direction);
+
+        lookAtPositionAfterFrighten = myPosition + direction;
+        worryQuad.Appear();
+
+        Invoke("RunAway", 0.5f);
     }
+
+    private void RunAway()
+    {
+        myTransform.LookAt(lookAtPositionAfterFrighten);
+        isRunningAway = true;
+    }
+
+    private Vector3 lookAtPositionAfterFrighten;
 
     public void FrightendRoutine(ref float deltaTime)
     {
-        currentSpeed = FORWARD_SPEED_PER_SECOND;
-        WalkForward(ref  deltaTime);
+        if (isRunningAway)
+        {
+            currentSpeed = FORWARD_SPEED_PER_SECOND;
+            WalkForward(ref deltaTime);
+        }
+
     }
 
     #region Idle:
@@ -143,9 +169,10 @@ public class Baby : Suckable
     }
     #endregion
 
+
     private void OnCollisionEnter(Collision collision)
     {
-        if(isAlive&& !isBurning && collision.gameObject.tag == "Hot")
+        if (isAlive && !isBurning && collision.gameObject.tag == "Hot")
         {
             isBurning = true;
             float delay = Random.Range(0, 1f);
@@ -153,20 +180,32 @@ public class Baby : Suckable
         }
     }
 
+    private void OnCollisionExit(Collision collision)
+    {
+        if (isBurning && collision.gameObject.tag == "Hot")
+        {
+            isBurning = false;
+        }
+    }
+
     private void Burn()
     {
-        SoundManager.PlayOneShotSoundAt(SoundNames.Sizzle, myTransform.position);
+        if (isBurning)
+        {
+            SoundManager.PlayOneShotSoundAt(SoundNames.Sizzle, myTransform.position);
 
-        Die();
-        rigidbody.constraints = RigidbodyConstraints.None;
-        rigidbody.AddForce(Vector3.up * 1, ForceMode.Impulse);
+            Die();
+            rigidbody.constraints = RigidbodyConstraints.None;
+            rigidbody.AddForce(Vector3.up * 1, ForceMode.Impulse);
 
-        Vector3 myPosition = this.myTransform.position;
+            Vector3 myPosition = this.myTransform.position;
 
-        Transform flameTransform = Spawner.instance.SpawnFlame().transform;
-        flameTransform.transform.position = myPosition;
+            Transform flameTransform = Spawner.instance.SpawnFlame().transform;
+            flameTransform.transform.position = myPosition;
 
-        Invoke("TurnIntoDrumStick",0.2f);
+            Invoke("TurnIntoDrumStick", 0.2f);
+        }
+       
     }
 
     private void TurnIntoDrumStick()

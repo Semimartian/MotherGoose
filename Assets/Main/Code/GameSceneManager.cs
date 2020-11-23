@@ -11,24 +11,30 @@ public class GameSceneManager : MonoBehaviour
     {
         if (Input.GetKeyDown(KeyCode.S))
         {
-            switch (sceneIndex)
-            {
-                case 0:
-                    {
-                        fenceAnimator.SetTrigger("Open");
-                    }
-                    break;
-
-                case 1:
-                    {
-                        StartCoroutine(ReleaseButterflies());
-                    }
-                    break;
-            }
-            sceneIndex++;
+            AdvanceScene();
+           
         }
     }
 
+
+    public void AdvanceScene()
+    {
+        switch (sceneIndex)
+        {
+            case 0:
+                {
+                    fenceAnimator.SetTrigger("Open");
+                }
+                break;
+
+            case 1:
+                {
+                    StartCoroutine(ReleaseButterflies());
+                }
+                break;
+        }
+        sceneIndex++;
+    }
 
    [SerializeField] private ParticleSystem[] butterflyEffects;
     private IEnumerator ReleaseButterflies()
